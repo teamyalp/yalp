@@ -1,3 +1,5 @@
+import { text } from '../../../../Library/Caches/typescript/2.6/node_modules/@types/body-parser';
+
 const mysql = require('mysql');
 
 const connection = mysql.createConnection({
@@ -63,6 +65,42 @@ const getBusinessById = function (id, cb) {
     })
 }
 
+//MYSQL QUERIES FOR:
+
+// Businesses
+
+// INSERT INTO businesses (name) VALUE ("Tu Lan");
+// INSERT INTO businesses (name) VALUE ("Chipotle");
+// INSERT INTO businesses (name) VALUE ("McDonalds");
+// INSERT INTO businesses (name) VALUE ("Fancy Steak House");
+// INSERT INTO businesses (name) VALUE ("Tempest");
+// INSERT INTO businesses (name) VALUE ("Some Expensive Place");
+
+//Users
+
+//INSERT INTO users (name, email, password, username) VALUES ("Chris", "Chris@Chris.com", "Chris", "ChrisChris");
+//INSERT INTO users (name, email, password, username) VALUES ("Kayleigh", "Kayleigh@Kayleigh.com", "Kayleigh", "Kayleigh");
+//INSERT INTO users (name, email, password, username) VALUES ("Connor", "Connor@Connor.com", "Connor", "Connor");
+//INSERT INTO users (name, email, password, username) VALUES ("Peter", "Peter@Peter.com", "Peter", "PeterPeterPumpkinEater");
+//INSERT INTO users (name, email, password, username) VALUES ("Fred", "Fred@Fred.com", "Fred", "Fred");
+//INSERT INTO users (name, email, password, username) VALUES ("Moises", "Moises@Chris.com", "BigCuddlyBear", "Weird");
+
+//Reviews 
+//user_id, business_id, text
+
+//INSERT INTO reviews (user_id, business_id, text) VALUES (1, 1, "this place is really tasty");
+//INSERT INTO reviews (user_id, business_id, text) VALUES (2, 2, "this place sucks ass");
+//INSERT INTO reviews (user_id, business_id, text) VALUES (3, 3, "this place could use better service");
+//INSERT INTO reviews (user_id, business_id, text) VALUES (4, 4, "this place is pretty mediocre");
+
+//CheckIns
+
+//INSERT INTO checkins (user_id, business_id) VALUES (1, 1);
+//INSERT INTO checkins (user_id, business_id) VALUES (2, 2);
+//INSERT INTO checkins (user_id, business_id) VALUES (3, 3);
+//INSERT INTO checkins (user_id, business_id) VALUES (4, 4);
+//INSERT INTO checkins (user_id, business_id) VALUES (5, 5);
+
 //TEST FUNCTION CALLS
 
 // connection.query(`SELECT * from USERS`, (err, results) => {
@@ -98,7 +136,7 @@ const getBusinessById = function (id, cb) {
 // })
 
 
-//connection.queries
+
 
 module.exports = {
     connection,
