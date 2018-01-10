@@ -1,20 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import App from './components/App.jsx';
 
-import SignUp from './components/SignUp.jsx';
-
-class App extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
-    return (
-      <div>
-        <SignUp />
-      </div>
-    )
-  }
-}
-
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>, 
+  document.getElementById('app')
+);

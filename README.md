@@ -43,8 +43,11 @@ npm install
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://docs.google.com/spreadsheets/d/1MgT30P-Qr_gjbcDdOrO5941QPmpS4muWEmha9AZfDuM/edit#gid=0)
 
+### Trello
+
+View the Trello [here](https://trello.com/b/wFOrXHnJ/yalp-application)
 
 ## Contributing
 
