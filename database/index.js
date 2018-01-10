@@ -73,13 +73,13 @@ const getBusinessById = function (id, cb) {
 //     }
 // })
 
-// postUser({ name: "testName", email: "testEmail", password: "testPassword", username: "testUsername" }, (err, results) => {
-//     if (err) {
-//         console.log(err)
-//     } else {
-//         console.log(results)
-//     }
-// })
+postUser({ name: "testName", email: "testEmail", password: "testPassword", username: "testUsername" }, (error) => {
+    if (error) {
+        console.log('error', error)
+    } else {
+        console.log('success!')
+    }
+})
 
 // getUserById(1, (err, results) => {
 //     if (err) {
