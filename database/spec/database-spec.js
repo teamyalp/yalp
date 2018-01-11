@@ -27,11 +27,14 @@ it('postUser adds a new user to our user table', function (done) {
     })
 })
 
-it('should retrieve a user from the database using his or her id number', function (done) {
+it('should retrieve a user from the database using his or her username and password', function (done) {
     
-    let userID = 1;
+    let user = {
+        username: 'connorchen',
+        password: 'connorchen'
+    };
 
-    db.getUserById(userID, (error, result) => {
+    db.getUserByUsername(user, (error, result) => {
         if (error) {
             done(error);
             return;
