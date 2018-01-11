@@ -139,6 +139,5 @@ module.exports = {
     connection,
     getUser,
     postUser,
-    getUserByUsername,
-    getBusinessById
+    getUserByUsername
 }
