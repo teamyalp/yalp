@@ -62,6 +62,37 @@ const getBusinessById = function (id, cb) {
     })
 }
 
+//get friends' reviews for a specific business
+
+const getFriendsReviews = function (userID, cb) {
+
+    let query = `SELECT reviews.text FROM reviews INNER JOIN friends ON friends.user_id1 = ${userID} AND friends.user_id2 = reviews.user_id`;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            cb(err)
+        } else {
+            cb(null, results)
+        }
+    })
+}
+
+//get non-friends' reviews for a specific business
+
+const getStrangersReviews = function (userID, cb) {
+
+    let query = `SELECT reviews.text FROM reviews WHERE reviews.text NOT IN (SELECT reviews.text FROM reviews INNER JOIN friends ON friends.user_id1 = ${userID} AND friends.user_id2 = reviews.user_id)`;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            cb(err)
+        } else {
+            cb(null, results)
+        }
+    })
+}
+
+
 //MYSQL QUERIES FOR:
 
 // Businesses
