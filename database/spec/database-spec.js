@@ -8,7 +8,7 @@ it('getUsers should get all users from our database', function (done) {
             done(err);
             return;
         }
-        expect(result[0].id).to.equal(1);
+        expect(result[0].hasOwnProperty('name')).to.equal(true);
         done();
     });
 })
@@ -31,12 +31,12 @@ it('should retrieve a user from the database using his or her id number', functi
     
     let userID = 1;
 
-    db.getUserById(userID, (error, result) => {
+    db.getUserById(userID, (error) => {
         if (error) {
             done(error);
             return;
         }
-        expect(result[0].hasOwnProperty('name')).to.equal(true);
+        expect(error).to.equal(null);
         done();
     })
 })
