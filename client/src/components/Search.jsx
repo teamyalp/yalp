@@ -3,10 +3,6 @@ import React from 'react'
 class Search extends React.Component {
     constructor(props) {
         super(props)
-
-        this.state = {
-            input: ''
-        }
     }
 
 
@@ -15,13 +11,6 @@ class Search extends React.Component {
         //i.e. this.props.[FUNCTION](this.state.input)
         console.log(this.refs.search.value)
     }
-
-    handleChange(e) {
-        this.setState({
-            input: e.target.value
-        })
-    }
-
 
     render() {
         return (
