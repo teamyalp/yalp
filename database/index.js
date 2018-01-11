@@ -3,7 +3,7 @@ const mysql = require('mysql');
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'root',
+    password: '',
     database: 'yalp'
 })
 
@@ -49,18 +49,18 @@ const getUserByUsername = function (user, cb) {
 
 //get business by id 
 
-const getBusinessById = function (id, cb) {
+// const getBusinessById = function (id, cb) {
 
-    let query = `SELECT businesses.name FROM businesses WHERE businesses.id = ${id}`
+//     let query = `SELECT businesses.name FROM businesses WHERE businesses.id = ${id}`
 
-    connection.query(query, (err, results) => {
-        if (err) {
-            cb(err)
-        } else {
-            cb(null, results)
-        }
-    })
-}
+//     connection.query(query, (err, results) => {
+//         if (err) {
+//             cb(err)
+//         } else {
+//             cb(null, results)
+//         }
+//     })
+// }
 
 //MYSQL QUERIES FOR:
 
@@ -139,6 +139,5 @@ module.exports = {
     connection,
     getUser,
     postUser,
-    getUserByUsername,
-    getBusinessById
+    getUserByUsername
 }
