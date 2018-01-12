@@ -3,7 +3,7 @@ const mysql = require('mysql');
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'root',
+    password: '',
     database: 'yalp'
 })
 
@@ -62,6 +62,49 @@ const getBusinessById = function (id, cb) {
     })
 }
 
+const getFriendsReviews = function (userID, cb) {
+
+    let query = `SELECT reviews.text FROM reviews INNER JOIN friends ON friends.user_id1 = ${userID} AND friends.user_id2 = reviews.user_id`;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            cb(err)
+        } else {
+            cb(null, results)
+        }
+    })
+}
+
+//get non-friends' reviews for a specific business
+
+const getStrangersReviews = function (userID, cb) {
+
+    let query = `SELECT reviews.text FROM reviews WHERE reviews.text NOT IN (SELECT reviews.text FROM reviews INNER JOIN friends ON friends.user_id1 = ${userID} AND friends.user_id2 = reviews.user_id)`;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            cb(err)
+        } else {
+            cb(null, results)
+        }
+    })
+}
+
+//temp function for searches, using mock data
+
+const tempSearch = function (search, cb) {
+    let query = `SELECT * FROM businesses`
+
+    connection.query(query, (err, results) => {
+        console.log(results)
+        if (err) {
+            cb(err)
+        } else {
+            cb(null, results)
+        }
+    })
+}
+
 //MYSQL QUERIES FOR:
 
 // Businesses
@@ -75,28 +118,48 @@ const getBusinessById = function (id, cb) {
 
 //Users
 
-//INSERT INTO users (name, email, password, username) VALUES ("Chris", "Chris@Chris.com", "Chris", "ChrisChris");
-//INSERT INTO users (name, email, password, username) VALUES ("Kayleigh", "Kayleigh@Kayleigh.com", "Kayleigh", "Kayleigh");
-//INSERT INTO users (name, email, password, username) VALUES ("Connor", "Connor@Connor.com", "Connor", "Connor");
-//INSERT INTO users (name, email, password, username) VALUES ("Peter", "Peter@Peter.com", "Peter", "PeterPeterPumpkinEater");
-//INSERT INTO users (name, email, password, username) VALUES ("Fred", "Fred@Fred.com", "Fred", "Fred");
-//INSERT INTO users (name, email, password, username) VALUES ("Moises", "Moises@Chris.com", "BigCuddlyBear", "Weird");
+// INSERT INTO users (name, email, password, username) VALUES ("Chris", "Chris@Chris.com", "Chris", "ChrisChris");
+// INSERT INTO users (name, email, password, username) VALUES ("Kayleigh", "Kayleigh@Kayleigh.com", "Kayleigh", "Kayleigh");
+// INSERT INTO users (name, email, password, username) VALUES ("Connor", "Connor@Connor.com", "Connor", "Connor");
+// INSERT INTO users (name, email, password, username) VALUES ("Peter", "Peter@Peter.com", "Peter", "PeterPeterPumpkinEater");
+// INSERT INTO users (name, email, password, username) VALUES ("Fred", "Fred@Fred.com", "Fred", "Fred");
+// INSERT INTO users (name, email, password, username) VALUES ("Moises", "Moises@Chris.com", "BigCuddlyBear", "Weird");
 
 //Reviews 
 //user_id, business_id, text
 
-//INSERT INTO reviews (user_id, business_id, text) VALUES (1, 1, "this place is really tasty");
-//INSERT INTO reviews (user_id, business_id, text) VALUES (2, 2, "this place sucks ass");
-//INSERT INTO reviews (user_id, business_id, text) VALUES (3, 3, "this place could use better service");
-//INSERT INTO reviews (user_id, business_id, text) VALUES (4, 4, "this place is pretty mediocre");
+// INSERT INTO reviews (user_id, business_id, text) VALUES (1, 1, "this place is really tasty");
+// INSERT INTO reviews (user_id, business_id, text) VALUES (2, 2, "this place sucks ass");
+// INSERT INTO reviews (user_id, business_id, text) VALUES (3, 3, "this place could use better service");
+// INSERT INTO reviews (user_id, business_id, text) VALUES (4, 4, "this place is pretty mediocre");
+// INSERT INTO reviews (user_id, business_id, text) VALUES (5, 5, "this place is pretty good");
+// INSERT INTO reviews (user_id, business_id, text) VALUES (6, 6, "this place is utter trash");
 
 //CheckIns
 
-//INSERT INTO checkins (user_id, business_id) VALUES (1, 1);
-//INSERT INTO checkins (user_id, business_id) VALUES (2, 2);
-//INSERT INTO checkins (user_id, business_id) VALUES (3, 3);
-//INSERT INTO checkins (user_id, business_id) VALUES (4, 4);
-//INSERT INTO checkins (user_id, business_id) VALUES (5, 5);
+// INSERT INTO checkins (user_id, business_id) VALUES (1, 1);
+// INSERT INTO checkins (user_id, business_id) VALUES (2, 2);
+// INSERT INTO checkins (user_id, business_id) VALUES (3, 3);
+// INSERT INTO checkins (user_id, business_id) VALUES (4, 4);
+// INSERT INTO checkins (user_id, business_id) VALUES (5, 5);
+// INSERT INTO checkins (user_id, business_id) VALUES (6, 6);
+
+//friends
+
+// INSERT INTO checkins (user_id1, user_id2) VALUES (1, 2);
+// INSERT INTO checkins (user_id1, user_id2) VALUES (1, 3);
+// INSERT INTO checkins (user_id1, user_id2) VALUES (1, 4);
+// INSERT INTO checkins (user_id1, user_id2) VALUES (1, 6);
+// INSERT INTO checkins (user_id1, user_id2) VALUES (2, 3);
+// INSERT INTO checkins (user_id1, user_id2) VALUES (2, 5);
+// INSERT INTO checkins (user_id1, user_id2) VALUES (2, 6);
+// INSERT INTO checkins (user_id1, user_id2) VALUES (3, 4);
+// INSERT INTO checkins (user_id1, user_id2) VALUES (3, 5);
+// INSERT INTO checkins (user_id1, user_id2) VALUES (3, 6);
+// INSERT INTO checkins (user_id1, user_id2) VALUES (4, 6);
+// INSERT INTO checkins (user_id1, user_id2) VALUES (5, 6);
+
+
 
 //TEST FUNCTION CALLS
 
@@ -140,5 +203,8 @@ module.exports = {
     getUser,
     postUser,
     getUserByUsername,
-    getBusinessById
+    getBusinessById,
+    tempSearch,
+    getStrangersReviews,
+    getFriendsReviews
 }

@@ -1,23 +1,19 @@
-{ "engines": {
-    "node": "6.10.2",
-    "npm": ">=5.0.0"
-  },
+{
   "name": "yalp",
   "version": "1.0.0",
   "description": "Hack Reactor Greenfield - Group 6 - YALP",
   "main": "index.js",
+  "engines": {
+    "node": ">=6.11.5",
+    "npm": ">=3.10.10"
+  },
   "scripts": {
+    "postinstall": "webpack --config ./webpack.config.js/",
+    "start": "node server/index.js",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
     "build:database": "mysql -u root < schema.sql",
-    "database-test": "mocha database/spec/database-spec.js --compilers js:babel-core/register --exit",
-    "build:server": "node ./server/index.js",
-    "server-test": "mocha server/spec/server-spec.js --compilers js:babel-core/register --exit",
-    "react-test": "jest",
-    "build:client": "webpack --config ./webpack.config.js/",
-    "start": "nodemon server/index.js",
-    "postinstall" : "webpack -d",
-    "test": "jest && mocha database/spec/database-spec.js --compilers js:babel-core/register --exit && mocha server/spec/server-spec.js --compilers js:babel-core/register --exit"
+    "test": "jest && mocha --exit"
   },
   "repository": {
     "type": "git",
@@ -59,9 +55,10 @@
     "babel-preset-react": "^6.24.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "file-loader": "^1.1.6",
     "jest": "^22.0.5",
-    "react-test-renderer": "^16.2.0",
     "mocha": "^4.1.0",
+    "react-test-renderer": "^16.2.0",
     "supertest": "^3.0.0"
   }
 }
