@@ -5,7 +5,7 @@ const googleAPI = `https://maps.googleapis.com/maps/api/place/`
 const location = `location=37.7749,-122.4194`
 
 const getBusinessInfo = (businessID, cb) => {
-    axios.get(`${googleAPI}details/json?placeid=${businessID}&key=${process.env.GOOGLE_API_KEY}AIzaSyAydLGe6HgJ7uE8mDbqj8v-ccMMHnV9XEw`)
+    axios.get(`${googleAPI}details/json?placeid=${businessID}&key=${process.env.GOOGLE_API_KEY}`)
         .then(response => cb(response))
         .catch(error => console.log('error:', error))
 }
