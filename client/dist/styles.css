@@ -57,10 +57,10 @@ a {
 .logoLink {
   color: white;
 }
-.logout {
+.logout, .profile {
   float: right;
 }
-.logout div {
+.logout div, .profile div {
   text-decoration: none;
   background-color: rgb(243, 209, 77);
   color: white;

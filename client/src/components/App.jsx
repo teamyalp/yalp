@@ -104,7 +104,10 @@ class App extends React.Component {
               <Link to="/" className="logout">
                 <div onClick={this.logoutUser.bind(this)}>Log Out</div>
               </Link>
-            </div> : 
+              <Link to="/profile" className="profile">
+                <div onClick={this.logoutUser.bind(this)}>Profile</div>
+              </Link>
+            </div> :
             <div>
               <img className="logo" src="https://image.ibb.co/cRbaE6/imageedit_16_4158574454.png"/>
               YALP!
