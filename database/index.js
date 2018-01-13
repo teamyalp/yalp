@@ -165,7 +165,11 @@ const checkCheckIn = function (userID, businessID, cb) {
 
 const addCheckIn = function (userID, businessID, cb) {
 
+<<<<<<< HEAD
+    let query = `INSERT INTO checkins (user_id, business_id) VALUES (${userID}, "${businessID}");`
+=======
     let test = connection.query(`SELECT * FROM checkins WHERE checkins.user_id = ${userID} AND checkins.business_id = ${businessID};`);
+>>>>>>> c288a1d27d77d61dcb2a0684225fa45f6551c21f
 
     if (test.length) {
         cb(false)

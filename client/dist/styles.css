@@ -107,11 +107,21 @@ a {
   font-weight: bold;
 }
 .businessInfo {
-  margin: 0;
+  margin: 15px 0px 5px 0px;
   width: 40%;
   height: 40%;
   border: 3px solid red;
   font-size: 18px;
+  display: inline-block;
+}
+.checkIn {
+  float: right;
+  background-color: rgb(243, 209, 77);
+  color: white;
+  border-radius: 5px;
+  font-size: 20px;
+  margin: 10px 9%;
+  padding: 12px 20px;
 }
 
 .addReview {

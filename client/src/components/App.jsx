@@ -12,6 +12,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      id: '',
       username: '',
       password: '',
       loggedIn: false,
@@ -45,6 +46,7 @@ class App extends React.Component {
         if (resp.data.length) {
           console.log('Rendering..')
           this.setState({
+            id: resp.data[0].id,
             username: resp.data[0].username,
             password: resp.data[0].password,
             userID: resp.data[0].id,
@@ -66,8 +68,10 @@ class App extends React.Component {
 
   getBusinesses(search) {
     let self = this;
+    console.log('click')
     axios.get(`/server/search/${search}`)
       .then(resp => {
+        console.log(resp);
         self.searchResults = resp;
         self.props.history.push('/listings');
       })
@@ -91,6 +95,17 @@ class App extends React.Component {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  checkIn(business) {
+    let userBusinessObj = {
+      userId: this.state.id,
+      business: business
+    }
+    axios.post('/server/profile/checkins', userBusinessObj)
+      .then(resp => {
+        console.log(resp)
+      })
   }
 
   render() {
@@ -122,7 +137,18 @@ class App extends React.Component {
           <Route path="/login" render={ () => <div id="form-background"><div id="form"><Login loginUser={this.loginUser.bind(this)}/></div></div> }/>
           <Route path="/signup" render={ () => <div id="form-background"><div id="form"><Signup createUser={this.createUser.bind(this)}/></div></div> }/>
           <Route path="/listings" render={ () => <div id="listings"><BusinessList businesses={ this.searchResults } updateBusiness={this.updateBusiness.bind(this)} /></div> } />
+<<<<<<< HEAD
+          <Route path={`/business/${this.state.business.name}`} render={ 
+            () => <BusinessPage business={this.state.business} 
+              getBusinessInfo={this.getBusinessInfo.bind(this)} 
+              getBusinesses={this.getBusinesses.bind(this)}
+              checkIn={this.checkIn.bind(this)}
+              /> 
+            } 
+          />
+=======
           <Route path={`/business/${this.state.business.name}`} render={ () => <BusinessPage business={this.state.business} getBusinessInfo={this.getBusinessInfo.bind(this)} getBusinesses={this.getBusinesses.bind(this)} username={this.state.username} userId={this.state.userID}/> } />
+>>>>>>> c288a1d27d77d61dcb2a0684225fa45f6551c21f
         </Switch>
     </div>
     )
