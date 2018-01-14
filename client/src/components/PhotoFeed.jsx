@@ -1,14 +1,12 @@
 import React from 'react';
 
-const PhotoFeed = (props) => (
-  <div className="photoFeed">
-      <ul>
-          <li> PHOTO1 </li>
-          <li> PHOTO2 </li>
-          <li> PHOTO3 </li>
-          <li> PHOTO4 </li>
-      </ul>
-  </div>
-)
+const PhotoFeed = (props) => {
+  console.log(props.photos)
+  return (
+    props.photos.map(photo => (
+        <img src={photo} key={photo}/>
+    ))
+  )
+}
 
 export default PhotoFeed;

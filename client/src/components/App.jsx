@@ -14,11 +14,12 @@ class App extends React.Component {
     this.state = {
       username: '',
       password: '',
-      loggedIn: false,
       business: {},
       userID: 0,
+      loggedIn: false,
       checkedIn: false
     }
+    this.photos = [];
     this.business = {};
     this.searchResults = {};
   }
@@ -68,7 +69,6 @@ class App extends React.Component {
 
   getBusinesses(search) {
     let self = this;
-    console.log('click')
     axios.get(`/server/search/${search}`)
       .then(resp => {
         console.log(resp);
@@ -82,16 +82,20 @@ class App extends React.Component {
 
   updateBusiness(e, business) {
     e.preventDefault()
-    this.getBusinessInfo(business.reference)
+    this.getBusinessInfo(business)
   }
 
-  getBusinessInfo(businessRef) {
+  getBusinessInfo(business) {
     let self = this;
-    axios.get(`/server/business/${businessRef}`)
+    axios.get(`/server/business/${business.reference}`)
       .then(resp => {
-        this.setState({business: resp.data});
-
-        this.props.history.push(`/business/${resp.data.name}`);
+        this.photos = [];
+        resp.data.photos.map(photo => {
+          this.getBusinessPhotos(photo.photo_reference, data => {
+            this.setState({business: resp.data});
+            this.props.history.push(`/business/${resp.data.name}`);
+          })
+        })
       })
       .catch(err => {
         console.log(err);
@@ -105,8 +109,18 @@ class App extends React.Component {
     }
     axios.post('/server/profile/checkins', userBusinessObj)
       .then(resp => {
-        console.log(resp)
-        this.setState({checkedIn: true})
+        this.setState({checkedIn: true});
+      })
+  }
+
+  getBusinessPhotos(photoRef, cb) {
+    axios.get(`/server/business/photos/${photoRef}`)
+      .then(resp => {
+        this.photos.push(resp.data);
+        cb();
+      })
+      .catch(err => {
+        console.log(err);
       })
   }
 
@@ -147,6 +161,8 @@ class App extends React.Component {
               username={this.state.username} 
               userId={this.state.userID}
               checkedIn={this.state.checkedIn}
+              getBusinessPhotos={this.getBusinessPhotos.bind(this)}
+              photos={this.photos}
               /> 
             } 
           />

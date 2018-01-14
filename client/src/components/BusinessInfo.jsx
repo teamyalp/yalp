@@ -1,7 +1,6 @@
 import React from 'react';
 
 const BusinessInfo = (props) => {
-  console.log(props.business);
   let imgArr = [];
   for (let i = 0; i < props.business.rating; i++) {
     imgArr.push(
