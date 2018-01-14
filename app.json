@@ -1,6 +1,7 @@
 {
   "name": "yalp",
   "scripts": {
+    "postinstall": "webpack --config ./webpack.config.js/"
   },
   "env": {
   },
@@ -10,8 +11,5 @@
 
   ],
   "buildpacks": [
-    {
-      "url": "heroku/nodejs"
-    }
   ]
 }
