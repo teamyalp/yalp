@@ -101,6 +101,7 @@ a {
   margin: 5%;
   background: white;
   padding: 5%;
+  height: 1400px;
 }
 .businessTitle {
   font-size: 30px;
@@ -109,7 +110,7 @@ a {
 .businessInfo {
   margin: 15px 0px 5px 0px;
   width: 40%;
-  height: 40%;
+  height: 200px;
   border: 3px solid red;
   font-size: 18px;
   display: inline-block;
@@ -123,11 +124,12 @@ a {
   margin: 10px 9%;
   padding: 12px 20px;
 }
-
 .addReview {
-  background-color: lightblue;
+  background-color: #fff;
   padding: 20px;
-  width: 60%
+  width: 60%;
+  border-top: 1px solid #ddd;
+  float: left;
 }
 .rate-btn {
   height: 30px;
@@ -139,7 +141,6 @@ a {
 .new-review-text {
   width: 90%;
   height: 75px;
-  border: none;
   font-size: 12px;
   margin-top: 4px;
 }
@@ -150,4 +151,32 @@ a {
   font-size: 12px;
   display: block;
   border: 1px solid white;
+}
+#reviews {
+  width: 60%;
+  padding: 20px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  float: left;
+}
+.friendReviews, .otherReviews {
+  background: #fff;
+}
+.review {
+  border-top: 1px solid #ddd;
+  padding: 10px;
+}
+.review-author {
+  font-size: 16px;
+}
+.review-rating {
+  font-size: 16px;
+}
+.review-text {
+  font-size: 16px;
+}
+.friendActivity {
+  background-color: lightblue;
+  width: 30%;
+  float: right;
 }

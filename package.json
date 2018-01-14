@@ -33,6 +33,7 @@
     "chai": "^4.1.2",
     "express": "^4.16.2",
     "heroku": "^0.2.0",
+    "javascript-time-ago": "^1.0.21",
     "jquery": "^3.2.1",
     "mocha": "^4.1.0",
     "mysql": "^2.15.0",

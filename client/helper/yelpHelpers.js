@@ -22,5 +22,5 @@ const getPhotos = (ref, cb) => {
 module.exports = {
   getBusinessInfo,
   searchBusinesses,
-  getPhotos
+  getPhoto
 }

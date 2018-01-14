@@ -74,7 +74,6 @@ app.post('/server/profile/checkins', (req, res) => {
 })
 //when user submits a review for a business
 app.post('/review', (req, res) => {
-  console.log(req.body);
   let review = {
     rating: req.body.rating,
     text: req.body.text
@@ -86,6 +85,41 @@ app.post('/review', (req, res) => {
     } else {
       console.log(results);
       res.status(201).json(results);
+    }
+  })
+});
+
+//when business page reviews render
+app.get('/server/reviews/friends', (req, res) => {
+  db.getFriendsReviews(req.query.userId, req.query.businessId, (err, results) => {
+    if (err) {
+      res.status(400);
+      res.end('Unable to retrieve friend reviews');
+    } else {
+      res.status(201).json(results);
+    }
+  })
+})
+//when business page reviews render
+app.get('/server/reviews/others', (req, res) => {
+  db.getStrangersReviews(req.query.userId, req.query.businessId, (err, results) => {
+    if (err) {
+      res.status(400);
+      res.end('Unable to retrieve others reviews');
+    } else {
+      res.status(201).json(results);
+    }
+  })
+})
+
+app.get('/server/user', (req, res) => {
+  db.getUsernameById(req.query.userId, (err, results) => {
+    if (err) {
+      res.send(400)
+      res.end('Unable to retrieve username from id')
+    } else {
+      console.log(results);
+      res.status(201).json(results)
     }
   })
 })
