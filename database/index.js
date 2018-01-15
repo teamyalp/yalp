@@ -338,18 +338,6 @@ const getFriends = function(userId, cb) {
     });
 };
 
-const getFriends = function(userId, cb) {
-    let query = 'select users.* from (select * from friends where friends.user_id1 = ?) a left join users on users.id = user_id2;';
-
-    connection.query(query, [userId], (err, results) => {
-        if (err) {
-            cb(err, null);
-        } else {
-            cb(null, results);
-        }
-    });
-};
-
 const getCheckins = function(userId, cb) {
     let query = 'select a.id, businesses.name, a.createdAt from (select * from checkins where checkins.user_id = ?) a left join businesses on businesses.id = a.business_id;';
 
@@ -496,8 +484,6 @@ module.exports = {
   addNewReview,
   getUsernameById,
   getFavorite,
-  getCheckins1,
-  getCheckins2,
   addFriend,
   friendChecker,
   getFriends,
