@@ -302,8 +302,13 @@ const addNewReview = function (userId, businessId, review, cb) {
 }
 
 
+<<<<<<< 01b82ba56d54dde10810854c14f7cb9c06c8b16f
 const getUsernameById = function (userId, cb) {
   let query = `SELECT username FROM users WHERE id=${userId}`;
+=======
+const getUsernameById = function(userId, cb) {
+  let query = `SELECT * FROM users WHERE id=${userId}`;
+>>>>>>> (feat) profile page
 
   connection.query(query, (err, results) => {
     if (err) {
@@ -326,6 +331,54 @@ const getFavorite = function (userId, cb) {
     }
   });
 };
+
+const getFriends = function(userId, cb) {
+    let query = 'select users.* from (select * from friends where user_id1 = ?) a left join users on a.user_id2 = users.id;';
+
+    connection.query(query, [userId], (err, results) => {
+        if (err) {
+            cb(err, null);
+        } else {
+            cb(null, results);
+        }
+    });
+};
+
+const getCheckins = function(userId, cb) {
+    let query = 'select businesses.*, a.createdAt from (select * from checkins where checkins.user_id = ?) a left join businesses on a.business_id = businesses.id;';
+    
+    connection.query(query, [userId], (err, results) => {
+        if (err) {
+            cb(err, null);
+        } else {
+            cb(null, results);
+        }
+    });
+};
+
+const getReviews = function(userId, cb) {
+    let query = 'select a.id, businesses.name, a.text, a.rating, a.createdAt from (select * from reviews where reviews.user_id = ?) a left join businesses on a.business_id = businesses.id';
+
+    connection.query(query, [userId], (err, results) => {
+        if (err) {
+            cb(err, null);
+        } else {
+            cb(null, results);
+        }
+    });
+}
+
+const getFavorites = function(userId, cb) {
+    let query = 'select a.id, businesses.name from (select * from favorites where favorites.user_id = ?) a left join businesses on a.business_id = businesses.id';
+
+    connection.query(query, [userId], (err, results) => {
+        if (err) {
+            cb(err, null);
+        } else {
+            cb(null, results);
+        }
+    });
+}
 
 //MYSQL QUERIES FOR:
 
@@ -439,5 +492,8 @@ module.exports = {
   getCheckins1,
   getCheckins2,
   addFriend,
-  friendChecker
+  friendChecker,
+  getCheckins,
+  getReviews,
+  getFavorites
 }
