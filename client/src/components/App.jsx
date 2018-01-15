@@ -7,6 +7,7 @@ import Signup from './Signup.jsx';
 import Search from './Search.jsx';
 import BusinessList from './BusinessList.jsx';
 import BusinessPage from './BusinessPage.jsx';
+import Profile from './Profile.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -50,6 +51,7 @@ class App extends React.Component {
             userId: resp.data[0].id,
             username: resp.data[0].username,
             password: resp.data[0].password,
+            email: resp.data[0].email,
             userID: resp.data[0].id,
             loggedIn: true,
           });
@@ -216,6 +218,7 @@ class App extends React.Component {
               /> 
             }
           />
+          <Route path="/profile" render={ () => <div><Profile profileId={this.state.userID} /></div>}/>
         </Switch>
     </div>
     )

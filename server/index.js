@@ -112,8 +112,8 @@ app.get('/server/reviews/others', (req, res) => {
   })
 })
 
-app.get('/server/user', (req, res) => {
-  db.getUsernameById(req.query.userId, (err, results) => {
+app.get('/server/user/:id', (req, res) => {
+  db.getUsernameById(req.params.id, (err, results) => {
     if (err) {
       res.send(400)
       res.end('Unable to retrieve username from id')
