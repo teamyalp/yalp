@@ -157,6 +157,30 @@ app.get('/profile/favorites/:userId', (req, res) => {
   });
 });
 
+app.get('/user/friends/:id', (req, res) => {
+  db.getFriends(parseInt(req.params.id), (err, result) => {
+    res.status(200).json(result);
+  });
+});
+
+app.get('/user/checkins/:id', (req, res) => {
+  db.getCheckins(parseInt(req.params.id), (err, result) => {
+    res.status(200).json(result);
+  });
+});
+
+app.get('/user/reviews/:id', (req, res) => {
+  db.getReviews(parseInt(req.params.id), (err, result) => {
+    res.status(200).json(result);
+  });
+});
+
+app.get('/user/favorites/:id', (req, res) => {
+  db.getFavorites(parseInt(req.params.id), (err, result) => {
+    res.status(200).json(result);
+  });
+});
+
 const server = app.listen(process.env.PORT || 3000, () => {
   var port = server.address().port;
   console.log('Listening at port %s', port);
