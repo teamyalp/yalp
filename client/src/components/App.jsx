@@ -175,7 +175,7 @@ class App extends React.Component {
         <div id="topnav">
           {this.state.loggedIn ?
             <div onClick={e => {
-              document.body.style.background = "url('beer.jpg')";
+              document.body.style.background = "url('beer.jpg')"; // we should look into finding the "React" way of doing this.
               document.body.style.backgroundSize = "100%";
             }}>
               <Link to="/search" className="logoLink">
