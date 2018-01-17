@@ -1,16 +1,28 @@
+# language: node_js
+# node_js:
+# - v6.11.5
+# cache:
+#   directories:
+#   - node-modules
+# services:
+# - mysql
+# before_script:
+# - npm run build:database
+# - npm run postinstall
+# deploy:
+#   provider: heroku
+#   api_key:
+#     secure: eHoM+6aJDOGFk6g/dKS2/SStn3QGfkhJhiOYXzIoM7oErsc81UkaNjgwRjsbiyQiL+KW/rn30hSNSawZOpGlsA0G/fO3ZyqDJ4nO6zV5LleHLk6P25J77tz6jl7JkqppeXR2nJVjejxeZF7PLq2CarYdzTVtH1mKi2ij9XLqtu63mEmH9R9B3SQZHpF5Yy2oOTFjbF8UERmTMSVYpztZJWDm/sXC7q3Bl/WOkXP8xKI4nMubGk8WYMY0Km9N3CLAnQDhKv4tklvPpm546t7G1eE2P+rEJb9OXeQeS0pGMZW/cN+UjE+jELOoG3VcK9Qlhafda1YU+Ohf8GtRh9rDR0z7JS5qrWi+tjSPRqASs1CljnB9m6GiZm/V9hn/2tChys+qAxm6aLCjkqve45MIxVbiyRNf0+b8MAh2YNTUodo2uInDJDZOxq+Ctkk0qGyCyk2PC6Hfs84lNcKLsOcWthE77Lnly8Ct68YTZafudopPrsk1Rb9lUI2qVGK9iKGKlwtPfFpXGYz07chZURC6PSqFS1LXlphadZar+YqMK8BhuL2h/6s1toi9ScUIWdTO30wiw9jLLXiHVDSWXSF6YK6LiWzy24P64FdUQGf01cmmXHunoKtbHNy5G7dADyHo6gsSHYiBsYUSt2x5mh8Rj90U5dlNq3kG/ol4F/70oZo=
+#   app: yalp
+
 language: node_js
 node_js:
-- v6.11.5
-cache:
-  directories:
-  - node-modules
+  - "node"
+install:
+  - npm install
+script:
+  - npm test
 services:
-- mysql
-before_script:
-- npm run build:database
-- npm run postinstall
-deploy:
-  provider: heroku
-  api_key:
-    secure: eHoM+6aJDOGFk6g/dKS2/SStn3QGfkhJhiOYXzIoM7oErsc81UkaNjgwRjsbiyQiL+KW/rn30hSNSawZOpGlsA0G/fO3ZyqDJ4nO6zV5LleHLk6P25J77tz6jl7JkqppeXR2nJVjejxeZF7PLq2CarYdzTVtH1mKi2ij9XLqtu63mEmH9R9B3SQZHpF5Yy2oOTFjbF8UERmTMSVYpztZJWDm/sXC7q3Bl/WOkXP8xKI4nMubGk8WYMY0Km9N3CLAnQDhKv4tklvPpm546t7G1eE2P+rEJb9OXeQeS0pGMZW/cN+UjE+jELOoG3VcK9Qlhafda1YU+Ohf8GtRh9rDR0z7JS5qrWi+tjSPRqASs1CljnB9m6GiZm/V9hn/2tChys+qAxm6aLCjkqve45MIxVbiyRNf0+b8MAh2YNTUodo2uInDJDZOxq+Ctkk0qGyCyk2PC6Hfs84lNcKLsOcWthE77Lnly8Ct68YTZafudopPrsk1Rb9lUI2qVGK9iKGKlwtPfFpXGYz07chZURC6PSqFS1LXlphadZar+YqMK8BhuL2h/6s1toi9ScUIWdTO30wiw9jLLXiHVDSWXSF6YK6LiWzy24P64FdUQGf01cmmXHunoKtbHNy5G7dADyHo6gsSHYiBsYUSt2x5mh8Rj90U5dlNq3kG/ol4F/70oZo=
-  app: yalp
+  - mysql
+before_install:
+  - mysql -u root < schema.sql

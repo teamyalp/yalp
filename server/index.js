@@ -2,7 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const db = require('../database/index.js');
-const api = require('../client/helper/yelpHelpers.js')
+const api = require('../client/helper/yelpHelpers.js');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -11,30 +13,42 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.post('/server/login', (req, res) => {
-  db.getUserByUsername(req.body, (err, results) => {
-    if (err) {
-      res.status(400);
-      res.end('Invalid User.');
+  db.getHW(req.body.username, (err, results) => {
+    if (results.length > 0) {
+      bcrypt.compare(req.body.password, results[0].password, function(err, resCrypt) {
+        if (resCrypt === true) {
+          db.getUserInfo(req.body.username, (err, resUserInfo) => {
+            res.status(200).send(resUserInfo);
+          });
+        }
+        if (resCrypt === false) {
+          res.status(401).end();
+        }
+      });
     } else {
-      res.status(201).json(results);
+      res.status(401).end();
     }
   });
 });
 
 app.post('/server/signup', (req, res) => {
-  db.postUser(req.body, (err, results) => {
-    if (err) {
-      res.status(400);
-      res.end('Failed to Create User.');
+  db.checkUserExists(req.body.username, (err, results) => {
+    if (results[0]['count(*)'] === 0) {
+      bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+        db.postUser(req.body.name, req.body.email, hash, req.body.username, (err, results) => {
+          res.status(201).send('Created');
+        });
+      });
     } else {
-      res.status(201).json(results);
+      res.status(400).send('Username exists');
     }
   });
 });
 
 // when user search
-app.get('/server/search/:query', (req, res) => {
-  api.searchBusinesses(req.params.query, results => {
+app.get('/server/search/:query/:loc', (req, res) => {
+  let params = req.params.loc ? [req.params.query, req.params.loc.slice(1, -1)] : [req.params.query];
+  api.searchBusinesses(params, results => {
     res.status(201).json(results.data.results);
   })
   // use below for test

@@ -1,35 +1,27 @@
-# Yalp
+# Yalp v2
 
-> Yalp Clone
+> Yalp Clone v2 by Team Number One
 
 ## Team
 
-  - Peter Luu
-  - Connor Chen
-  - Kayleigh Foley
-  - Christopher Chen
+  - Moises Muñoz
+  - Justin Yoo
+  - Franco Catania
+  - Felipe Catania
 
 ## Table of Contents
 
-1. [Usage](#Usage)
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
-1. [Team](#team)
 1. [Contributing](#contributing)
 
-## Usage
-
-> Some usage instructions
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- React
-- Express
+- Node
+- Nodemon
+- Postgresql
 
 ## Development
 
@@ -43,11 +35,11 @@ npm install
 
 ### Roadmap
 
-View the project roadmap [here](https://docs.google.com/spreadsheets/d/1MgT30P-Qr_gjbcDdOrO5941QPmpS4muWEmha9AZfDuM/edit#gid=0)
+View the project roadmap [here](https://docs.google.com/document/d/1z-DjJWslR3B-Ow_CfHWpx_we7WaY8cNYswiyhpoya00/edit#).
 
 ### Trello
 
-View the Trello [here](https://trello.com/b/wFOrXHnJ/yalp-application)
+View the Trello Board [here](https://trello.com/b/z7pRK1W1/yalp-extended-version).
 
 ## Contributing
 

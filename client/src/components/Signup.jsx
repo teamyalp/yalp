@@ -37,7 +37,6 @@ class Signup extends React.Component {
     }
     let filledIn = true;
     for (let key in this.formData) {
-      console.log(this.formData[key])
       if (!this.formData[key]) {
         filledIn = false;
         document.getElementById(`${key}`).placeholder = `Please enter a valid ${key}...`;

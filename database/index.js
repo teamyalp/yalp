@@ -31,33 +31,45 @@ const getUser = function (user, cb) {
   })
 }
 
-const postUser = function (user, cb) {
+let checkUserExists = function(username, cb) {
+  connection.query(`SELECT count(*) FROM users WHERE username='${username}'`, (err, results) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, results);
+    }
+  });
+};
 
-  let test = connection.query(`SELECT * FROM users WHERE users.name = "${user.name}"`);
-
-  if (test.length) {
-    cb(false)
-  } else {
-    let query = `INSERT INTO users (name, email, password, username) VALUES (?, ?, ?, ?);`
-
-    connection.query(query, [user.name, user.email, user.password, user.username], (err, results) => {
-      if (err) {
-        cb(err, null);
-      } else {
-        cb(null, results);
-      }
-      return;
-    })
-  }
+const postUser = function (name, email, hw, username, cb) {
+  let query = `INSERT INTO users (name, email, password, username) VALUES ('${name}', '${email}', '${hw}', '${username}');`
+  connection.query(query, (err, results) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, results);
+    }
+  })
 }
 
 //get user by id
 
-const getUserByUsername = function (user, cb) {
 
-  let query = `SELECT * FROM users WHERE users.username = ? AND users.password = ?;`
+let getHW = function(username, cb) {
+  connection.query(`SELECT password FROM users WHERE username = '${username}'`, (err, results) => {
+    if (err) {
+      cb(err)
+    } else {
+      cb(null, results)
+    }
+  });
+};
 
-  connection.query(query, [user.username, user.password], (err, results) => {
+
+const getUserInfo = function (username, cb) {
+  let query = `SELECT id, name, username, email FROM users WHERE username = '${username}'`
+
+  connection.query(query, (err, results) => {
     if (err) {
       cb(err)
     } else {
@@ -472,7 +484,8 @@ module.exports = {
   connection,
   getUser,
   postUser,
-  getUserByUsername,
+  getHW,
+  getUserInfo,
   getBusinessById,
   tempSearch,
   getStrangersReviews,
@@ -491,5 +504,7 @@ module.exports = {
   getFriends,
   getCheckins,
   getReviews,
-  getFavorites
+  getFavorites,
+  checkUserExists,
+  
 }

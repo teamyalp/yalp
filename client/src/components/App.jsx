@@ -16,7 +16,7 @@ class App extends React.Component {
       username: '',
       password: '',
       business: {},
-      userID: 0,
+      userId: 0,
       loggedIn: false,
       checkedIn: false,
       favorites: {},
@@ -26,43 +26,52 @@ class App extends React.Component {
   }
 
   createUser(userData) {
+    // userData = {
+    //   name: 
+    //   email: 
+    //   username: 
+    //   password: 
+    // }
     let self = this;
     axios.post('/server/signup', userData)
       .then(resp => {
-        console.log(resp);
-        let loginData = {
-          username: userData.username,
-          password: userData.password
+        if (resp.status === 201) {
+          window.alert('Signed up!')
+          let loginData = {
+            username: userData.username,
+            password: userData.password
+          }
+          this.loginUser(loginData);
         }
-        this.loginUser(loginData);
       })
       .catch(err => {
-        console.log(err);
+        window.alert('Username is taken')
       });
   }
 
   loginUser(userData) {
+    // let loginData = {
+    //   username:
+    //   password:
+    // }
     let self = this;
     axios.post('/server/login', userData)
       .then(resp => {
-        if (resp.data.length) {
-          console.log('Rendering..')
+        if (resp.status === 200) {
           this.setState({
-            userId: resp.data[0].id,
             username: resp.data[0].username,
-            password: resp.data[0].password,
+            password: '',
             email: resp.data[0].email,
-            userID: resp.data[0].id,
+            userId: resp.data[0].id,
+            name: resp.data[0].name,
             loggedIn: true,
           });
           this.getFavorite()
           self.props.history.push('/search');
-        } else {
-          console.log('INVALID USER');
         }
       })
       .catch(err => {
-        console.log(err);
+        window.alert('Wrong username or password');
       });
   }
 
@@ -70,13 +79,13 @@ class App extends React.Component {
     this.setState({loggedIn: false})
   }
 
-  getBusinesses(search) {
-    let self = this;
-    axios.get(`/server/search/${search}`)
+  getBusinesses(search, loc) {
+    let url = loc ? `/server/search/${search}/${loc}` : `/server/search/${search}`;
+    axios.get(url)
       .then(resp => {
         console.log(resp);
-        self.searchResults = resp;
-        self.props.history.push('/listings');
+        this.searchResults = resp;
+        this.props.history.push('/listings');
       })
       .catch(err => {
         console.log(err);
@@ -133,8 +142,8 @@ class App extends React.Component {
   }
 
   getFavorite() {
-    const { userID } = this.state;
-    axios.get(`/profile/favorites/${userID}`)
+    const { userId } = this.state;
+    axios.get(`/profile/favorites/${userId}`)
       .then(resp => {
         let { favorites } = this.state;
         if (resp.data) {
@@ -212,7 +221,7 @@ class App extends React.Component {
               getFavoriteInfo={this.getBusinessFav.bind(this)}
               checkIn={this.checkIn.bind(this)}
               username={this.state.username}
-              userId={this.state.userID}
+              userId={this.state.userId}
               checkedIn={this.state.checkedIn}
               getBusinessPhotos={this.getBusinessPhotos.bind(this)}
               photos={this.photos}
@@ -221,7 +230,7 @@ class App extends React.Component {
               /> 
             }
           />
-          <Route path="/profile" render={ () => <div><Profile profileId={this.state.userID} /></div>}/>
+          <Route path="/profile" render={ () => <div><Profile profileId={this.state.userId} /></div>}/>
         </Switch>
     </div>
     )

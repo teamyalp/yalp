@@ -1,4 +1,5 @@
 ### node etc ###
+.DS_Store
 
 # Logs
 logs
@@ -23,7 +24,7 @@ build/
 bundle.js
 
 # Config File
-config.js
+yelp.js
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:
