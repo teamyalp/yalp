@@ -26,7 +26,7 @@ class App extends React.Component {
   }
 
   createUser(userData) {
-    let self = this;
+    let self = this; // self defined but never used in function?
     axios.post('/server/signup', userData)
       .then(resp => {
         console.log(resp);
@@ -55,7 +55,7 @@ class App extends React.Component {
             userID: resp.data[0].id,
             loggedIn: true,
           });
-          this.getFavorite()
+          this.getFavorite() // this vs self here? 
           self.props.history.push('/search');
         } else {
           console.log('INVALID USER');
@@ -205,7 +205,7 @@ class App extends React.Component {
               businesses={this.searchResults} 
               updateBusiness={this.updateBusiness.bind(this)}
               favorites={this.state.favorites} /></div> } />
-          <Route path={`/business/${this.state.business.name}`} render={ 
+          <Route path={`/business/${this.state.business.name}`} render={ // this is a nightmare.
             () => <BusinessPage business={this.state.business} 
               getBusinessInfo={this.getBusinessInfo.bind(this)} 
               getBusinesses={this.getBusinesses.bind(this)}
