@@ -4,10 +4,10 @@
 
 ## Team
 
-  - Peter Luu
+  - Christopher Chen
   - Connor Chen
   - Kayleigh Foley
-  - Christopher Chen
+  - Peter Luu
 
 ## Table of Contents
 
