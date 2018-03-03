@@ -4,10 +4,10 @@
 
 ## Team
 
-  - Peter Luu
+  - Christopher Chen
   - Connor Chen
   - Kayleigh Foley
-  - Christopher Chen
+  - Peter Luu
 
 ## Table of Contents
 
@@ -25,11 +25,11 @@
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- React
-- Express
+- Node 6.11.5
+- NPM 3.10.10
+- MySQL 2.15.0
+- React 16.2.0
+- Express 4.16.2
 
 ## Development
 

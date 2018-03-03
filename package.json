@@ -19,7 +19,7 @@
     "type": "git",
     "url": "git+https://github.com/teamyalp/yalp.git"
   },
-  "author": "",
+  "author": "Yalp",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/teamyalp/yalp/issues"
@@ -41,7 +41,7 @@
     "javascript-time-ago": "^1.0.21",
     "jquery": "^3.2.1",
     "mocha": "^4.1.0",
-    "mysql": "^2.15.0",
+  "mysql": "^2.15.0",
     "nodemon": "^1.14.10",
     "passport": "^0.4.0",
     "pg": "^7.4.1",
