@@ -33,8 +33,9 @@ app.post('/server/signup', (req, res) => {
   });
 });
 
-app.get('/server/search/:query', (req, res) => {
-  api.searchBusinesses(req.params.query, (results) => {
+app.get('/server/search/:query/:location', (req, res) => {
+  const { query, location } = req.params;
+  api.searchBusinesses(query, location, (results) => {
     res.status(200).json(results.data.results);
   });
 });

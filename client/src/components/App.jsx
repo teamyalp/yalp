@@ -21,6 +21,7 @@ class App extends React.Component {
       checkedIn: false,
       favorites: {},
     }
+    this.location = 'location=37.7749,-122.4194',
     this.photos = [];
     this.searchResults = {};
   }
@@ -72,9 +73,8 @@ class App extends React.Component {
 
   getBusinesses(search) {
     let self = this;
-    axios.get(`/server/search/${search}`)
+    axios.get(`/server/search/${search}/${this.location}`)
       .then(resp => {
-        console.log(resp);
         self.searchResults = resp;
         self.props.history.push('/listings');
       })
@@ -167,6 +167,19 @@ class App extends React.Component {
 
   backToResults() {
     this.props.history.push('/listings');
+  }
+
+  getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        this.location = `location=${latitude},${longitude}`;
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.getLocation();
   }
 
   render() {
