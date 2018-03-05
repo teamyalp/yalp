@@ -1,10 +1,12 @@
+const api = require('../client/helper/yelpHelpers.js');
+const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
+const db = require('../database/index.js');
 const express = require('express');
 const path = require('path');
 
 const app = express();
-const api = require('../client/helper/yelpHelpers.js');
-const db = require('../database/index.js');
+const saltRounds = 10;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -12,23 +14,38 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '/../client/dist')));
 
 app.post('/server/login', (req, res) => {
-  db.getUserByUsername(req.body, (err, results) => {
-    if (err) {
-      res.status(400);
-      res.end('Invalid user');
+  const { username, password } = req.body;
+  db.getUserByUsername(username, (err, results) => {
+    if (err || !results.length) {
+      res.status(401);
+      res.end('Invalid username or password');
     } else {
-      res.status(201).json(results);
+      bcrypt.compare(password, results[0].password, (err1, resCrypt) => {
+        if (resCrypt) {
+          res.status(200).json(results);
+        } else {
+          res.status(401).json('Invaild username or password');
+        }
+      });
     }
   });
 });
 
 app.post('/server/signup', (req, res) => {
-  db.postUser(req.body, (err, results) => {
-    if (err) {
-      res.status(400);
-      res.end('Failed to create user');
+  db.userExists(req.body.username, (err, exists) => {
+    if (!exists) {
+      bcrypt.hash(req.body.password, saltRounds, (err1, hash) => {
+        req.body.password = hash;
+        db.postUser(req.body, (err2, results) => {
+          if (err) {
+            res.status(400).json('Unable to create user. Please try again later.');
+          } else {
+            res.status(201).json('Created');
+          }
+        });
+      });
     } else {
-      res.status(201).json(results);
+      res.status(400).json('Username exists');
     }
   });
 });

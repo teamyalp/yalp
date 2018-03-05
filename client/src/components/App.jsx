@@ -20,6 +20,7 @@ class App extends React.Component {
       loggedIn: false,
       checkedIn: false,
       favorites: {},
+      createUserStatus: 'createUserStatus test!',
     }
     this.location = 'location=37.7749,-122.4194',
     this.photos = [];
@@ -38,7 +39,10 @@ class App extends React.Component {
         this.loginUser(loginData);
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response);
+        let { createUserStatus } = this.state;
+        createUserStatus = err.response.data;
+        this.setState({ createUserStatus })
       });
   }
 
@@ -212,7 +216,7 @@ class App extends React.Component {
           <Route exact path="/" render={ () => <div id="form-background"><div id="form"><Home /></div></div> }/>
           <Route path="/search" render={ () => <div id="form-background"><div id="form"><Search getBusinesses={this.getBusinesses.bind(this)}/></div></div> }/>
           <Route path="/login" render={ () => <div id="form-background"><div id="form"><Login loginUser={this.loginUser.bind(this)}/></div></div> }/>
-          <Route path="/signup" render={ () => <div id="form-background"><div id="form"><Signup createUser={this.createUser.bind(this)}/></div></div> }/>
+          <Route path="/signup" render={ () => <div id="form-background"><div id="form"><Signup createUser={this.createUser.bind(this)} createUserStatus={this.state.createUserStatus}/></div></div> }/>
           <Route path="/listings" render={ 
             () => <div id="listings"><BusinessList 
               businesses={this.searchResults} 
