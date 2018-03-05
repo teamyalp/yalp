@@ -30,25 +30,33 @@ const getUser = (user, cb) => {
 };
 
 const postUser = (user, cb) => {
-  const test = connection.query(`SELECT * FROM users WHERE users.name = "${user.name}"`);
-  if (test.length) {
-    cb(false);
-  } else {
-    const query = 'INSERT INTO users (name, email, password, username) VALUES (?, ?, ?, ?);';
-    const columns = [user.name, user.email, user.password, user.username];
-    connection.query(query, columns, (err, results) => {
-      if (err) {
-        cb(err, null);
-      } else {
-        cb(null, results);
-      }
-    });
-  }
+  const query = 'INSERT INTO users (name, email, password, username) VALUES (?, ?, ?, ?);';
+  const columns = [user.name, user.email, user.password, user.username];
+  connection.query(query, columns, (err, results) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, results);
+    }
+  });
 };
 
-const getUserByUsername = (user, cb) => {
-  const query = 'SELECT * FROM users WHERE users.username = ? AND users.password = ?;';
-  connection.query(query, [user.username, user.password], (err, results) => {
+const userExists = (username, cb) => {
+  const query = 'SELECT * FROM users WHERE username = ?;';
+  connection.query(query, [username], (err, results) => {
+    if (err) {
+      cb(err, null);
+    } else if (results.length) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+    }
+  });
+};
+
+const getUserByUsername = (username, cb) => {
+  const query = 'SELECT * FROM users WHERE username = ?;';
+  connection.query(query, [username], (err, results) => {
     if (err) {
       cb(err, null);
     } else {
@@ -322,6 +330,7 @@ module.exports = {
   connection,
   getUser,
   postUser,
+  userExists,
   getUserByUsername,
   getBusinessById,
   tempSearch,

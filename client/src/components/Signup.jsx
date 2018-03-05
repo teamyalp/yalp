@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Alert } from 'reactstrap';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -37,7 +38,6 @@ class Signup extends React.Component {
     }
     let filledIn = true;
     for (let key in this.formData) {
-      console.log(this.formData[key])
       if (!this.formData[key]) {
         filledIn = false;
         document.getElementById(`${key}`).placeholder = `Please enter a valid ${key}...`;
@@ -49,8 +49,10 @@ class Signup extends React.Component {
   }
 
   render() {
-    return(
+    console.log(this.props.createUserStatus);
+    return (
       <div>
+        <Alert color="danger">{ this.props.createUserStatus }</Alert>
         <Link to="/">
           <button type="Home">
             Go Back
